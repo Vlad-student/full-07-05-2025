@@ -6,3 +6,7 @@ const apiClient = axios.create({
 
 export const fetchAllSports = () => apiClient.get("/sports");
 export const fetchSportById = (id) => apiClient.get(`/sports/${id}`);
+export const fetchCreateSport = (formData) =>
+  apiClient.post("/sports", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
