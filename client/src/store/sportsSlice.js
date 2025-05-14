@@ -1,5 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchAllSports, fetchSportById, fetchCreateSport } from "../api";
+import {
+  fetchAllSports,
+  fetchSportById,
+  fetchCreateSport,
+  deleteSportById,
+  updateSportById,
+} from "../api";
+
+export const updateSportByIdAsync = createAsyncThunk(
+  "sports/deleteSportByIdAsync",
+  async ({ id, formData }, thunkAPI) => {
+    try {
+      const response = await updateSportById({ id, formData });
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error?.message);
+    }
+  }
+);
+
+export const deleteSportByIdAsync = createAsyncThunk(
+  "sports/deleteSportByIdAsync",
+  async (id, thunkAPI) => {
+    try {
+      const response = await deleteSportById(id);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error?.message);
+    }
+  }
+);
 
 export const fetchCreateSportAsync = createAsyncThunk(
   "sports/fetchCreateSportAsync",
@@ -61,6 +91,7 @@ const sportsSlice = createSlice({
     builder.addCase(fetchAllSportsAsync.fulfilled, (state, action) => {
       state.sports = action.payload;
       state.isLoading = false;
+      state.error = null;
     });
     builder.addCase(fetchAllSportsAsync.rejected, rejectedCase);
 
@@ -68,6 +99,7 @@ const sportsSlice = createSlice({
     builder.addCase(fetchSportByIdAsync.fulfilled, (state, action) => {
       state.selectedSport = action.payload;
       state.isLoading = false;
+      state.error = null;
     });
     builder.addCase(fetchSportByIdAsync.rejected, rejectedCase);
 
@@ -75,8 +107,19 @@ const sportsSlice = createSlice({
     builder.addCase(fetchCreateSportAsync.fulfilled, (state, action) => {
       state.isLoading = false;
       state.createdSport = action.payload;
+      state.error = null;
     });
     builder.addCase(fetchCreateSportAsync.rejected, rejectedCase);
+
+    builder.addCase(deleteSportByIdAsync.pending, pendCase);
+    builder.addCase(deleteSportByIdAsync.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.sports = state.sports.filter(
+        (sport) => sport._id !== action.payload._id
+      );
+      state.error = null;
+    });
+    builder.addCase(deleteSportByIdAsync.rejected, rejectedCase);
   },
 });
 
