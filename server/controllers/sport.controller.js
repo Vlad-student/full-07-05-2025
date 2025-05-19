@@ -31,7 +31,9 @@ module.exports.findAllSports = async (req, res, next) => {
 
 module.exports.findSportById = async (req, res, next) => {
   try {
-    const sport = await Sport.findById(req.params.idSport).populate({path: 'athletes'});
+    const sport = await Sport.findById(req.params.idSport).populate({
+      path: "athletes",
+    });
     if (!sport) {
       return res.status(400).send("sport not found");
     }
@@ -57,7 +59,9 @@ module.exports.updateSportById = async (req, res, next) => {
       sport.image = `/${CONSTANTS.UPLOAD_FOLDER}${req.file.filename}`;
     }
     sport.name = name || sport.name;
-    sport.isOlimpic = isOlimpic || sport.isOlimpic;
+    if (isOlimpic !== undefined) {
+      sport.isOlimpic = isOlimpic;
+    }
     const updateSport = await sport.save();
     res.status(200).send({ data: updateSport });
   } catch (error) {

@@ -8,7 +8,7 @@ import {
 } from "../api";
 
 export const updateSportByIdAsync = createAsyncThunk(
-  "sports/deleteSportByIdAsync",
+  "sports/updateSportById",
   async ({ id, formData }, thunkAPI) => {
     try {
       const response = await updateSportById({ id, formData });
@@ -20,7 +20,7 @@ export const updateSportByIdAsync = createAsyncThunk(
 );
 
 export const deleteSportByIdAsync = createAsyncThunk(
-  "sports/deleteSportByIdAsync",
+  "sports/deleteSportById",
   async (id, thunkAPI) => {
     try {
       const response = await deleteSportById(id);
@@ -32,7 +32,7 @@ export const deleteSportByIdAsync = createAsyncThunk(
 );
 
 export const fetchCreateSportAsync = createAsyncThunk(
-  "sports/fetchCreateSportAsync",
+  "sports/fetchCreateSport",
   async (formData, thunkAPI) => {
     try {
       const response = await fetchCreateSport(formData);
@@ -120,6 +120,13 @@ const sportsSlice = createSlice({
       state.error = null;
     });
     builder.addCase(deleteSportByIdAsync.rejected, rejectedCase);
+
+    builder.addCase(updateSportByIdAsync.pending, pendCase);
+    builder.addCase(updateSportByIdAsync.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.selectedSport = action.payload;
+    });
+    builder.addCase(updateSportByIdAsync.rejected, rejectedCase);
   },
 });
 
