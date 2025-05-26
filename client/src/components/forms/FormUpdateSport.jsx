@@ -7,24 +7,24 @@ import styles from "./form.module.scss";
 
 const FormUpdateSport = ({ sport, handleShowForm }) => {
   const dispatch = useDispatch();
-  const onSubmit = (values, formikBag) => {
+  const onSubmit = (values) => {
     console.log(values);
     const formData = new FormData();
     if (values.name) {
       formData.append("name", values.name);
     }
-      if (values.isOlimpic) {
+    if (values.isOlimpic) {
       formData.append("isOlimpic", values.name);
     }
-      if (values.image) {
+    if (values.image) {
       formData.append("image", values.name);
     }
-    dispatch(updateSportByIdAsync({ id: sport._id, formData}));
+    dispatch(updateSportByIdAsync({ id: sport._id, formData }));
     handleShowForm();
   };
   const initialValues = {
     name: sport.name || "",
-    isOlimpic: sport.isOlimpic || "",
+    isOlimpic: sport.isOlimpic || false,
     image: "",
   };
   return (

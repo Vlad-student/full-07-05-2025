@@ -6,6 +6,7 @@ import {
   deleteSportById,
   updateSportById,
 } from "../api";
+import { pendCase, rejectedCase } from "./helpers";
 
 export const updateSportByIdAsync = createAsyncThunk(
   "sports/updateSportById",
@@ -66,15 +67,6 @@ export const fetchAllSportsAsync = createAsyncThunk(
     }
   }
 );
-
-const pendCase = (state) => {
-  state.isLoading = true;
-  state.error = null;
-};
-const rejectedCase = (state, action) => {
-  state.error = action.payload;
-  state.isLoading = false;
-};
 
 const sportsSlice = createSlice({
   name: "sports",

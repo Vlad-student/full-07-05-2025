@@ -2,8 +2,8 @@ POST http://localhost:3000/athletes HTTP/1.1
 Content-Type: application/json
 
 {
-"name":"Novaki Bob",
+"name":"Noerervakbnbnmnmn",
 "country": "USA",
 "birthYear" : 1987,
-"sportId": "6808f501cd720dd476f1951e"
+"sportId": "680272a94666975292f103a8"
 }

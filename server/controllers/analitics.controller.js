@@ -20,12 +20,12 @@ module.exports.countAthletesBySport = async (req, res, next) => {
           count: { $size: "$athletes" },
         },
       },
-      {
-        $sort: { count: 1 },
-      },
-      {
-        $limit: 3,
-      },
+      // {
+      //   $sort: { count: 1 },
+      // },
+      // {
+      //   $limit: 3,
+      // },
     ]);
 
     res.status(200).send({ data });
