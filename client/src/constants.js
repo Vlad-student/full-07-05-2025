@@ -3,6 +3,7 @@ const CONSTANTS = {
   FILE_TYPES: ["image/png", "image/jpg", "image/jpeg"],
   MAX_FILE_SIZE: 5 * 1024 * 1024,
   COUNTRIES: ["Germany", "Argentina", "Polish", "Ukraine", "USA", "Spain"],
+  COLORS: ["yellow", "blue", "red", "aqua", "green", "orange"],
 };
 
 export default CONSTANTS;

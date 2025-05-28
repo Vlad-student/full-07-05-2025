@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchAthletesBySportAsync } from "../../store/analiticsSlice";
+import { fetchSportsByCountryAsync } from "../../store/analiticsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BarChart,
@@ -11,38 +11,33 @@ import {
 } from "recharts";
 import styles from "../analitics/analitics.module.scss";
 
-const AthletesBySport = () => {
+const SportsByCountry = () => {
   const dispatch = useDispatch();
-  const { isLoading, error, athletesBySport } = useSelector(
+  const { isLoading, error, sportsByCountry } = useSelector(
     (state) => state.analitics
   );
   useEffect(() => {
-    dispatch(fetchAthletesBySportAsync());
+    dispatch(fetchSportsByCountryAsync());
   }, [dispatch]);
   return (
     <section className={styles.analitics}>
-      <h2>Amount athletes in each sport</h2>
+      <h2>Amount sports by country</h2>
       {error && <p>{error}</p>}
       {isLoading && <p>Loading...</p>}
-      {athletesBySport.length === 0 ? (
+      {sportsByCountry.length === 0 ? (
         <p>empty data</p>
       ) : (
         <ResponsiveContainer width="75%" height={400}>
-          <BarChart data={athletesBySport}>
-            <XAxis dataKey="sport" />
+          <BarChart data={sportsByCountry}>
+            <XAxis dataKey="_id" />
             <YAxis />
-            <Bar dataKey="count" fill="green" />
+            <Bar dataKey="amount" fill="red" />
             <Tooltip />
           </BarChart>
         </ResponsiveContainer>
-        // athletesBySport.map((data) => (
-        //   <p key={data.sport}>
-        //     {data.sport} - {data.count}
-        //   </p>
-        // ))
       )}
     </section>
   );
 };
 
-export default AthletesBySport;
+export default SportsByCountry;
