@@ -33,5 +33,5 @@ export const fetchAthletesByCountry = () =>
   apiClient.get("/analitics/amount-athletes-by-country");
 export const fetchAverageAgeAthletesBySport = () =>
   apiClient.get("/analitics/average-athletes-by-country");
-export const fetchSportsByCountry = () =>
+export const fetchSportsByCountry = () =>7
   apiClient.get("/analitics/amount-sports-by-country");

@@ -1,4 +1,14 @@
+@use '/src/common/breakpoints' as *;
+
 header{
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
+
+
+   @media screen  and (min-width: $m) {
+      flex-direction: row;
+} 
 };
+
+
